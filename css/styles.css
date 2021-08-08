@@ -11,6 +11,9 @@
   --client-image-color: #afb1b8;
   --our-work-text-bg-color: rgba(47, 48, 58, 0.8);
   --backdrop-bg-color: rgba(0, 0, 0, 0.2);
+  --modal-close-icon-color: rgba(0, 0, 0, 0.1);
+  --portfolio-overlay-bg-color: rgba(33, 150, 243, 0.9);
+  --transition-options: 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 /* Global styles */
 
@@ -37,6 +40,10 @@ ul {
 img {
   max-width: 100%;
   display: block;
+}
+
+button {
+  user-select: none;
 }
 
 .list {
@@ -107,6 +114,7 @@ img {
   font-weight: 500;
   font-size: 14px;
   line-height: 1.17;
+  transition: color var(--transition-options);
 }
 
 .address .address-li {
@@ -130,6 +138,7 @@ img {
 
 .address-li {
   color: var(--primary-text-color);
+  transition: color var(--transition-options);
 }
 
 .address-icon {
@@ -153,6 +162,27 @@ img {
 .nav .nav-li.current:focus,
 .nav .nav-li.current:hover {
   color: var(--button-background-color);
+}
+
+.nav > .item {
+  position: relative;
+}
+
+.nav-li.current::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0px;
+  width: 100%;
+  display: block;
+  height: 4px;
+  border-radius: 2px;
+  background-size: contain;
+  background-color: var(--accent-color);
+}
+
+.nav-li.current:hover::after {
+  transform: skaleX(1);
 }
 
 /* hero styles */
@@ -216,18 +246,28 @@ img {
   border-radius: 4px;
   border: none;
   cursor: pointer;
+  transition: background-color var(--transition-options),
+    box-shadow var(--transition-options);
 }
 
 .backdrop {
+  opacity: 1;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   background-color: var(--backdrop-bg-color);
+  transition: opacity var(--transition-options);
+}
+
+.backdrop.is-hidden {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .modal {
+  opacity: 1;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -238,12 +278,20 @@ img {
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14),
     0px 2px 1px rgba(0, 0, 0, 0.2);
   border-radius: 4px;
+  transition: opacity var(--transition-options);
 }
 
-.button:hover,
-.button:focus {
-  background-color: var(--button-background-color);
+.modal-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  background-color: var(--secondary-text-color);
 }
+
 /* features styles */
 
 .features {
@@ -368,12 +416,14 @@ img {
   height: 44px;
   border-radius: 50%;
   background-color: var(--secondary-text-color);
+  transition: background-color var(--transition-options);
 }
 
 /* ОБЯЗАТЕЛЬНО снять родные филы в свг файле, ОБЯЗАТЕЛЬНО прописать ему размеры в хтмл коде и ОБЯЗАТЕЛЬНО задавать ховер через двойной селектор класса родитель+ребенок для правильного наследования ссылки и отображения размеров иконки */
 
 .team-icon {
   fill: var(--client-image-color);
+  transition: fill var(--transition-options);
 }
 
 .team-icon-link:hover .team-icon,
@@ -448,10 +498,12 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: border var(--transition-options);
 }
 
 .client-image {
   fill: var(--client-image-color);
+  transition: fill var(--transition-options);
 }
 
 .clients-link:hover .client-image,
@@ -510,6 +562,7 @@ img {
 
 .foot-li {
   color: var(--unique-color);
+  transition: color var(--transition-options);
 }
 
 .address-foot .foot-li:hover,
@@ -547,6 +600,7 @@ img {
   height: 44px;
   border-radius: 50%;
   background-color: var(--social-footer-bg-color);
+  transition: background-color var(--transition-options);
 }
 .join-link-icon {
   fill: var(--secondary-text-color);
@@ -573,6 +627,8 @@ img {
   line-height: 1.6;
   font-weight: 500;
   cursor: pointer;
+  transition: background-color var(--transition-options),
+    color var(--transition-options), box-shadow var(--transition-options);
 }
 
 .buttons:hover,
@@ -605,6 +661,7 @@ img {
 }
 
 .projects-border {
+  position: relative;
   /* аналогичное решение вместе с обнулениями маржинов -- width: calc((100% - 2 * 30px) / 3); 30px - ширина маржина * на кол-во маржинов. Больше объектов -> больше маржинов (всегда на 1 меньше) -> больше пикселей */
   margin-right: 30px;
   margin-bottom: 30px;
@@ -641,6 +698,10 @@ img {
   text-decoration: none;
 }
 
+.projects-link:hover::after {
+  transform: translateY(0);
+}
+
 .projects-link:hover,
 .projects-link:focus {
   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.12), 0px 4px 4px rgba(0, 0, 0, 0.06),
@@ -653,4 +714,33 @@ img {
   line-height: 2;
   font-weight: 700;
   color: var(--tittle-text-color);
+}
+
+.projects-thumb {
+  position: relative;
+  overflow: hidden;
+}
+
+.projects-overlay {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--portfolio-overlay-bg-color);
+  transform: translateY(100%);
+  transition: transform var(--transition-options);
+}
+
+.projects-overlay-disc {
+  color: var(--secondary-text-color);
+  padding: 63px 24px;
+  font-size: 18px;
+  line-height: 1.6;
+  letter-spacing: 0.03em;
+}
+
+.projects-link:hover .projects-overlay,
+.projects-link:focus .projects-overlay {
+  transform: translateY(0%);
 }

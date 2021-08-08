@@ -47,7 +47,7 @@
         <section class="hero overlay">
             <div class="container">
                 <h1 class="hero-title">Эффективные решения для вашего бизнеса</h1>
-                <button class="button" type="button">Заказать услугу</button>
+                <button class="button" type="button" data-modal-open>Заказать услугу</button>
             </div>
         </section>
         <!--Особенности-->
@@ -57,7 +57,7 @@
                 <ul class="features-list list">
                     <li class="item">
                         <div class="features-icon-pos">
-                            <svg class="features-icon" width="70px" height="70px">
+                            <svg width="70px" height="70px">
                                 <use href="./images/symbol-defs.svg#antenna"></use>
                             </svg>
                         </div>
@@ -66,7 +66,7 @@
                     </li>
                     <li class="item">
                         <div class="features-icon-pos">
-                            <svg class="features-icon" width="70px" height="70px">
+                            <svg width="70px" height="70px">
                                 <use href="./images/symbol-defs.svg#clock"></use>
                             </svg>
                         </div>
@@ -75,7 +75,7 @@
                     </li>
                     <li class="item">
                         <div class="features-icon-pos">
-                            <svg class="features-icon" width="70px" height="70px">
+                            <svg width="70px" height="70px">
                                 <use href="./images/symbol-defs.svg#diagram"></use>
                             </svg>
                         </div>
@@ -84,7 +84,7 @@
                     </li>
                     <li class="item">
                         <div class="features-icon-pos">
-                            <svg class="features-icon" width="70px" height="70px">
+                            <svg width="70px" height="70px">
                                 <use href="./images/symbol-defs.svg#astronaut"></use>
                             </svg>
                         </div>
@@ -300,11 +300,12 @@
 
     <!-- Модальное окно -->
 
-    <div class="backdrop">
-        <div class="modal"><svg class="modal-close-icon" width="11" height="11">
-                <use href="./images/modal-close.svg"></use>
-            </svg></div>
+    <div class="backdrop is-hidden" data-modal>
+        <div class="modal"><button class="modal-button" type="button" data-modal-close><svg class="" width="11" height="11">
+            <use href="./images/symbol-defs.svg#modal-close"></use>
+        </svg></button></div>
     </div>
+    <script src="./js/modal.js"></script>
 </body>
 
 </html>
