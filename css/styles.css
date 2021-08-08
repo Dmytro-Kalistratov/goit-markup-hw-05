@@ -250,6 +250,11 @@ button {
     box-shadow var(--transition-options);
 }
 
+.button:hover,
+.button:focus {
+  background-color: var(--button-background-color);
+}
+
 .backdrop {
   opacity: 1;
   position: fixed;
